@@ -19,13 +19,3 @@ steps:
     orchestratorConnection: 'DemoDevops'
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
     traceLevel: 'Information'
-- task: UiPathTest@4
-  inputs:
-    testTarget: 'TestProject'
-    orchestratorConnection: 'DemoDevops'
-    folderName: 'abc'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'ArtifactSamplebuild'
-    publishLocation: 'Container'
