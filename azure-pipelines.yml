@@ -7,13 +7,25 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- 
+- task: UiPathPack@4
+  inputs:
+    versionType: 'CurrentVersion'
+    projectJsonPath: '$(Build.SourcesDirectory)'
+    splitOutput: true
+    orchestratorConnection: 'DemoDevops'
+    outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+    traceLevel: 'Information'
+- task: UiPathTest@4
+  inputs:
+    testTarget: 'TestProject'
+    orchestratorConnection: 'DemoDevops'
+    folderName: 'abc'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'ArtifactSamplebuild'
+    publishLocation: 'Container'
